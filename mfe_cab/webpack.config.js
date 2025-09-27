@@ -18,7 +18,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'mfe_cab',
       filename: 'remoteEntry.js',
-      exposes: { './CabApp': './src/App.jsx' },
+      exposes: { './CabApp': './src/App.jsx', './CabSummary': './src/components/CabSummary.jsx' },
       remotes: {
     base_app: 'base_app@http://localhost:3000/remoteEntry.js'
   },

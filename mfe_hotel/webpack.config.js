@@ -19,7 +19,7 @@ module.exports = {
     new ModuleFederationPlugin({
     name: 'mfe_hotel',
       filename: 'remoteEntry.js',
-      exposes: { './HotelApp': './src/App.jsx' },
+      exposes: { './HotelApp': './src/App.jsx', './HotelSummary': './src/components/HotelSummary.jsx' },
       remotes: {
     base_app: 'base_app@http://localhost:3000/remoteEntry.js'
   },

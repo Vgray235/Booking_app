@@ -1,31 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity, clearCart } from '../redux/cartSlice';
-import './SummaryPopup.css';
 import { useSearchParams } from 'react-router-dom';
+import './SummaryPopup.css';
+
+// Lazy load summary components from each microfrontend
+const FoodSummary = React.lazy(() => import('mfe_food/FoodSummary'));
+const CabSummary = React.lazy(() => import('mfe_cab/CabSummary'));
+const HotelSummary = React.lazy(() => import('mfe_hotel/HotelSummary'));
+const EventSummary = React.lazy(() => import('mfe_events/EventSummary'));
 
 export default function SummaryPopup({ onClose, username }) {
   const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
-     const [searchParams] = useSearchParams();
-       const urlUsername = searchParams.get('username') || username;
-  const handleRemoveItem = (category, id) => {
-    dispatch(removeFromCart({ category, id }));
-  };
-
-  const handleUpdateQuantity = (category, id, newQuantity) => {
-    dispatch(updateQuantity({ category, id, quantity: newQuantity }));
-  };
+  const [searchParams] = useSearchParams();
+  const urlUsername = searchParams.get('username') || username;
 
   const handleClearCart = () => {
     dispatch(clearCart());
-  };
-
-  const categoryNames = {
-    food: { name: '🍕 Food', color: '#ff6b6b' },
-    cab: { name: '🚗 Cab', color: '#45b7d1' },
-    hotel: { name: '🏨 Hotel', color: '#96ceb4' },
-    events: { name: '🎭 Events', color: '#4ecdc4' }
   };
 
   const calculateTotalPrice = () => {
@@ -45,40 +37,13 @@ export default function SummaryPopup({ onClose, username }) {
         </div>
         
         <div className="summary-content">
-          {Object.entries(cart).map(([category, items]) => 
-            items.length > 0 && (
-              <div key={category} className="category-section">
-                <h3 style={{ borderLeftColor: categoryNames[category]?.color }}>
-                  {categoryNames[category]?.name} 
-                  <span className="item-count">
-                    ({items.reduce((sum, item) => sum + item.quantity, 0)} items)
-                  </span>
-                </h3>
-                {items.map(item => (
-                  <div key={`${category}-${item.id}`} className="cart-item">
-                    <div className="item-info">
-                      <span className="item-name">{item.name}</span>
-                      <span className="item-price">${(item.price * item.quantity).toFixed(2)}</span>
-                    </div>
-                    <div className="quantity-controls">
-                      <button 
-                        onClick={() => handleUpdateQuantity(category, item.id, item.quantity - 1)}
-                      >-</button>
-                      <span className="quantity">{item.quantity}</span>
-                      <button 
-                        onClick={() => handleUpdateQuantity(category, item.id, item.quantity + 1)}
-                      >+</button>
-                    </div>
-                    <button 
-                      className="remove-btn"
-                      onClick={() => handleRemoveItem(category, item.id)}
-                      title="Remove item"
-                    >🗑️</button>
-                  </div>
-                ))}
-              </div>
-            )
-          )}
+          <Suspense fallback={<div>Loading summaries...</div>}>
+            {/* Each microfrontend provides its own summary */}
+            <FoodSummary items={cart.food} />
+            <CabSummary items={cart.cab} />
+            <HotelSummary items={cart.hotel} />
+            <EventSummary items={cart.events} />
+          </Suspense>
           
           {totalItems === 0 ? (
             <div className="empty-cart">

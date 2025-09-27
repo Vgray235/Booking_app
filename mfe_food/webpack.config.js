@@ -19,7 +19,7 @@ module.exports = {
     new ModuleFederationPlugin({
      name: 'mfe_food',
       filename: 'remoteEntry.js',
-      exposes: { './FoodApp': './src/App.jsx' },
+      exposes: { './FoodApp': './src/App.jsx', './FoodSummary': './src/components/FoodSummary.jsx' },
       remotes: {
     base_app: 'base_app@http://localhost:3000/remoteEntry.js'
   },

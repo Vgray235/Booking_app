@@ -19,7 +19,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'mfe_events',
       filename: 'remoteEntry.js',
-      exposes: { './EventApp': './src/App.jsx' },
+      exposes: { './EventApp': './src/App.jsx', './EventSummary': './src/components/EventSummary.jsx'  },
       remotes: {
     base_app: 'base_app@http://localhost:3000/remoteEntry.js'
   },
