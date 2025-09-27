@@ -1,15 +1,33 @@
 import React from 'react';
+import './Navigation.css';
 
-export default function Navigation({setActive}) {
+const categories = [
+  { key: 'food', label: '🍕 Food', color: '#ff6b6b' },
+  { key: 'events', label: '🎭 Events', color: '#4ecdc4' },
+  { key: 'cab', label: '🚗 Cab', color: '#45b7d1' },
+  { key: 'hotel', label: '🏨 Hotel', color: '#96ceb4' }
+];
+
+export default function Navigation({ activeCategory, setActiveCategory }) {
   return (
-    <div style={{width:220, borderRight:'1px solid #ddd', padding:16}}>
-      <h3>Categories</h3>
-      <ul style={{listStyle:'none', padding:0}}>
-        <li><button onClick={()=>setActive('food')}>Food</button></li>
-        <li><button onClick={()=>setActive('events')}>Events</button></li>
-        <li><button onClick={()=>setActive('cab')}>Cab</button></li>
-        <li><button onClick={()=>setActive('hotel')}>Hotel</button></li>
+    <nav className="navigation">
+      <div className="nav-header">
+        <h2>📋 Categories</h2>
+      </div>
+      <ul className="nav-list">
+        {categories.map(category => (
+          <li key={category.key}>
+            <button 
+              className={`nav-item ${activeCategory === category.key ? 'active' : ''}`}
+              onClick={() => setActiveCategory(category.key)}
+              style={{ '--accent-color': category.color }}
+            >
+              <span className="nav-icon">{category.label.split(' ')[0]}</span>
+              <span className="nav-label">{category.label.split(' ')[1]}</span>
+            </button>
+          </li>
+        ))}
       </ul>
-    </div>
+    </nav>
   );
 }

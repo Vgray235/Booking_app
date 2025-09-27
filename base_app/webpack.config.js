@@ -10,7 +10,10 @@ module.exports = {
   },
   output: { publicPath: 'auto' },
   resolve: { extensions: ['.js', '.jsx'] },
-  module: { rules: [{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }] },
+  module: { rules: [{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }, {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      }] },
   plugins: [
     new ModuleFederationPlugin({
       name: 'base_app',
@@ -21,6 +24,11 @@ module.exports = {
         mfe_cab: 'mfe_cab@http://localhost:3003/remoteEntry.js',
         mfe_hotel: 'mfe_hotel@http://localhost:3004/remoteEntry.js'
       },
+       exposes: {
+    './CartSlice': './src/redux/cartSlice.js',
+    './UserSlice': './src/redux/userSlice.js',
+    './ReduxStore': './src/redux/store.js'
+  },
       shared: { 
         react: { 
           singleton: true, 

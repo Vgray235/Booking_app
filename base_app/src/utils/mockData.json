@@ -1,50 +1,23 @@
 {
   "food": [
-    {
-      "id": 1,
-      "name": "Pizza",
-      "price": 10
-    },
-    {
-      "id": 2,
-      "name": "Burger",
-      "price": 5
-    }
-  ],
-  "events": [
-    {
-      "id": 1,
-      "name": "Concert",
-      "price": 50
-    },
-    {
-      "id": 2,
-      "name": "Theater",
-      "price": 30
-    }
+    { "id": 1, "name": "Pizza Margherita", "price": 12.99, "image": "🍕", "description": "Classic Italian pizza" },
+    { "id": 2, "name": "Burger Deluxe", "price": 8.99, "image": "🍔", "description": "Juicy beef burger" },
+    { "id": 3, "name": "Sushi Platter", "price": 18.99, "image": "🍣", "description": "Fresh sushi selection" },
+    { "id": 4, "name": "Caesar Salad", "price": 7.99, "image": "🥗", "description": "Fresh garden salad" }
   ],
   "cab": [
-    {
-      "id": 1,
-      "name": "Mini Cab",
-      "price": 15
-    },
-    {
-      "id": 2,
-      "name": "SUV Cab",
-      "price": 25
-    }
+    { "id": 1, "name": "City Sedan", "price": 2.5, "type": "Sedan", "capacity": 4, "image": "🚗" },
+    { "id": 2, "name": "Family SUV", "price": 3.5, "type": "SUV", "capacity": 6, "image": "🚙" },
+    { "id": 3, "name": "Business Class", "price": 5.0, "type": "Luxury", "capacity": 3, "image": "🏎️" }
   ],
   "hotel": [
-    {
-      "id": 1,
-      "name": "Hilton",
-      "price": 100
-    },
-    {
-      "id": 2,
-      "name": "Marriott",
-      "price": 120
-    }
+    { "id": 1, "name": "Standard Room", "price": 89.99, "type": "Standard", "beds": 1, "image": "🏨" },
+    { "id": 2, "name": "Deluxe Suite", "price": 149.99, "type": "Suite", "beds": 2, "image": "🏢" },
+    { "id": 3, "name": "Executive Room", "price": 199.99, "type": "Executive", "beds": 1, "image": "💼" }
+  ],
+  "events": [
+    { "id": 1, "name": "Rock Concert", "price": 45.00, "type": "Music", "date": "2024-01-15", "image": "🎵" },
+    { "id": 2, "name": "Basketball Game", "price": 35.00, "type": "Sports", "date": "2024-01-20", "image": "🏀" },
+    { "id": 3, "name": "Theater Play", "price": 25.00, "type": "Arts", "date": "2024-01-25", "image": "🎭" }
   ]
 }
