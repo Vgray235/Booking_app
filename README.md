@@ -81,3 +81,118 @@ dispatch(addToCart('food', { id: 1, qty: 1 }));
 - Each MFE only manages its own category.
 - Base App handles login, navigation, cart, and admin inventory.
 - Adding new category → just create new MFE and expose via Module Federation.
+
+
+📋 Core Functionalities to Implement
+1. Base Application (Host App)
+File: src/App.jsx
+
+javascript
+// Main layout with navigation and content area
+// Manages global state and routing
+// Displays cart icon and summary modal
+Key Components:
+
+Navigation Panel: Left sidebar with 4 category links
+
+Content Panel: Right area to display microfrontends
+
+Cart/Star Icon: Fixed position icon showing total selections
+
+Summary Modal: Popup showing all selected items across categories
+
+2. Data Communication System
+Approach: Redux + Local Storage
+
+javascript
+// src/store/store.js - Global state management
+{
+  user: { username: 'John' },
+  selections: {
+    food: [{ id: 1, name: 'Pizza', quantity: 2 }],
+    cab: [{ id: 1, name: 'Sedan', quantity: 1 }],
+    hotel: [{ id: 1, name: 'Deluxe Room', quantity: 3 }],
+    events: [{ id: 1, name: 'Concert', quantity: 2 }]
+  },
+  summary: {
+    totalItems: 8,
+    categoryCounts: { food: 2, cab: 1, hotel: 3, events: 2 }
+  }
+}
+3. Shared Data Structure (Agree on this first!)
+javascript
+// shared/dataSchema.js
+const SELECTION_SCHEMA = {
+  id: 'string|number',
+  name: 'string',
+  price: 'number', // optional
+  quantity: 'number',
+  category: 'food|cab|hotel|events',
+  metadata: 'object' // additional category-specific data
+}
+
+const SUMMARY_SCHEMA = {
+  username: 'string',
+  totalItems: 'number',
+  categoryCounts: {
+    food: 'number',
+    cab: 'number', 
+    hotel: 'number',
+    events: 'number'
+  },
+  selections: 'array[SELECTION_SCHEMA]'
+}
+4. Microfrontend Functionalities
+Food Microfrontend (Port 3001)
+javascript
+// Features:
+- Display food items list (mock data/API)
+- Each item: Name, Image, Price, +/- buttons
+- Add/remove items to cart
+- Local state + sync with base app store
+Cab Microfrontend (Port 3003)
+javascript
+// Features:
+- Display cab types (Sedan, SUV, Luxury)
+- Each cab: Type, Price per km, Capacity, +/- buttons
+- Real-time availability check (mock)
+Hotel Microfrontend (Port 3004)
+javascript
+// Features:
+- Display hotel rooms (Standard, Deluxe, Suite)
+- Each room: Type, Price/night, Amenities, +/- buttons
+- Date selection (optional)
+Events Microfrontend (Port 3002)
+javascript
+// Features:
+- Display events (Concerts, Sports, Theater)
+- Each event: Name, Date, Venue, Price, +/- buttons
+- Capacity limits
+5. Navigation & Routing
+javascript
+// Base App Routing
+/ → Home/Dashboard
+/food → Food Microfrontend
+/cab → Cab Microfrontend  
+/hotel → Hotel Microfrontend
+/events → Events Microfrontend
+
+// Query param handling: example.com?username=John
+6. Cart & Summary System
+Cart Icon Component:
+
+Shows total item count badge
+
+On click: Opens summary modal
+
+Persistent across navigation
+
+Summary Modal:
+
+javascript
+// Displays:
+- Username (from URL params)
+- Category-wise item counts
+- List of all selected items
+- Total calculations
+- Checkout/clear options
