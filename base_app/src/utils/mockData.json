@@ -1,0 +1,50 @@
+{
+  "food": [
+    {
+      "id": 1,
+      "name": "Pizza",
+      "price": 10
+    },
+    {
+      "id": 2,
+      "name": "Burger",
+      "price": 5
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "name": "Concert",
+      "price": 50
+    },
+    {
+      "id": 2,
+      "name": "Theater",
+      "price": 30
+    }
+  ],
+  "cab": [
+    {
+      "id": 1,
+      "name": "Mini Cab",
+      "price": 15
+    },
+    {
+      "id": 2,
+      "name": "SUV Cab",
+      "price": 25
+    }
+  ],
+  "hotel": [
+    {
+      "id": 1,
+      "name": "Hilton",
+      "price": 100
+    },
+    {
+      "id": 2,
+      "name": "Marriott",
+      "price": 120
+    }
+  ]
+}

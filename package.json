@@ -1,0 +1,11 @@
+{
+  "name": "booking-microfrontend",
+  "private": true,
+  "workspaces": [
+    "base_app",
+    "mfe_food",
+    "mfe_events",
+    "mfe_cab",
+    "mfe_hotel"
+  ]
+}
