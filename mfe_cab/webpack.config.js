@@ -4,10 +4,7 @@ const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.js'),
-  devServer: {
-    port: 3003,
-    historyApiFallback: true
-  },
+  mode: 'production',
   output: { publicPath: 'auto' },
   resolve: { extensions: ['.js', '.jsx'] },
   module: { rules: [{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }, {
@@ -20,7 +17,7 @@ module.exports = {
       filename: 'remoteEntry.js',
       exposes: { './CabApp': './src/App.jsx', './CabSummary': './src/components/CabSummary.jsx' },
       remotes: {
-    base_app: 'base_app@http://localhost:3000/remoteEntry.js'
+    base_app: 'base_app@https://microservi.netlify.app/remoteEntry.js'    
   },
       shared: { react: { singleton:true, requiredVersion:false }, 'react-dom': { singleton:true, requiredVersion:false }, 'react-redux': { singleton:true, requiredVersion:false }, '@reduxjs/toolkit': { singleton:true, requiredVersion:false } }
     }),

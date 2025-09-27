@@ -4,10 +4,7 @@ const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.jsx'),
-  devServer: {
-    port: 3000,
-    historyApiFallback: true
-  },
+ mode: 'production',
   output: { publicPath: 'auto' },
   resolve: { extensions: ['.js', '.jsx'] },
   module: { rules: [{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }, {
