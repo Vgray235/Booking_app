@@ -3,9 +3,9 @@ const path = require('path');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   devServer: {
-    port: 3000,
+    port: 3002,
     historyApiFallback: true
   },
   output: { publicPath: 'auto' },
@@ -13,14 +13,9 @@ module.exports = {
   module: { rules: [{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }] },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'base_app',
+      name: 'mfe_events',
       filename: 'remoteEntry.js',
-      remotes: {
-        mfe_food: 'mfe_food@http://localhost:3001/remoteEntry.js',
-        mfe_events: 'mfe_events@http://localhost:3002/remoteEntry.js',
-        mfe_cab: 'mfe_cab@http://localhost:3003/remoteEntry.js',
-        mfe_hotel: 'mfe_hotel@http://localhost:3004/remoteEntry.js'
-      },
+      exposes: { './EventApp': './src/App.jsx' },
       shared: { react: { singleton:true, requiredVersion:false }, 'react-dom': { singleton:true, requiredVersion:false }, 'react-redux': { singleton:true, requiredVersion:false }, '@reduxjs/toolkit': { singleton:true, requiredVersion:false } }
     }),
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') })

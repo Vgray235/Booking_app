@@ -2,10 +2,10 @@
   "name": "booking-microfrontend",
   "private": true,
   "workspaces": [
-    "base-app",
-    "mfe-food",
-    "mfe-events",
-    "mfe-cab",
-    "mfe-hotel"
+    "base_app",
+    "mfe_food",
+    "mfe_events",
+    "mfe_cab",
+    "mfe_hotel"
   ]
 }
