@@ -4,10 +4,7 @@ const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.jsx'),
-  devServer: {
-    port: 3000,
-    historyApiFallback: true
-  },
+ mode: 'production',
   output: { publicPath: 'auto' },
   resolve: { extensions: ['.js', '.jsx'] },
   module: { rules: [{ test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }, {
@@ -19,10 +16,14 @@ module.exports = {
       name: 'base_app',
       filename: 'remoteEntry.js',
       remotes: {
-        mfe_food: 'mfe_food@http://localhost:3001/remoteEntry.js',
-        mfe_events: 'mfe_events@http://localhost:3002/remoteEntry.js',
-        mfe_cab: 'mfe_cab@http://localhost:3003/remoteEntry.js',
-        mfe_hotel: 'mfe_hotel@http://localhost:3004/remoteEntry.js'
+        mfe_food: 'mfe_food@https://micr1.netlify.app/remoteEntry.js',
+        mfe_events: 'mfe_events@https://micr2.netlify.app/remoteEntry.js',
+        mfe_cab: 'mfe_cab@https://micr3.netlify.app/remoteEntry.js',
+        mfe_hotel: 'mfe_hotel@https://micr4.netlify.app/remoteEntry.js'
+
+
+        // for locally you need to give the port no at which it needs to run so change the port number accordingly
+        
       },
        exposes: {
     './CartSlice': './src/redux/cartSlice.js',
