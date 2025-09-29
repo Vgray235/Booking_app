@@ -77,10 +77,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="login-footer">
-          <p>Try accessing with URL parameter: <code>?username=John</code></p>
-          <p><small>Each user has their own separate cart!</small></p>
-        </div>
+      
       </div>
     </div>
   );
