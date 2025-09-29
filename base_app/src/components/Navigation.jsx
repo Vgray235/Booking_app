@@ -11,9 +11,6 @@ const categories = [
 export default function Navigation({ activeCategory, setActiveCategory }) {
   return (
     <nav className="navigation">
-      <div className="nav-header">
-        <h2>📋 Categories</h2>
-      </div>
       <ul className="nav-list">
         {categories.map(category => (
           <li key={category.key}>
