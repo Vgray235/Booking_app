@@ -1,9 +1,8 @@
 import React, { useState, Suspense } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useSearchParams } from 'react-router-dom'; // FIX: Import from react-router-dom
-import Navigation from '../components/Navigation';
-import CartIcon from '../components/CartIcon';
+import { useSearchParams } from 'react-router-dom';
 import UserProfile from '../components/UserProfile';
+import CartIcon from '../components/CartIcon';
 import './HomePage.css';
 
 const FoodApp = React.lazy(() => import('mfe_food/FoodApp'));
@@ -13,15 +12,12 @@ const HotelApp = React.lazy(() => import('mfe_hotel/HotelApp'));
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('food');
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const user = useSelector(state => state.user);
   const cart = useSelector(state => state.cart);
-  const location = useLocation(); // Now this will work correctly
   const [searchParams] = useSearchParams();
 
-  // Get username from URL params for display (fallback to Redux state)
   const urlUsername = searchParams.get('username') || user.username;
-
-  // Calculate total items
   const totalItems = Object.values(cart).flat().reduce((sum, item) => sum + item.quantity, 0);
 
   const renderMicrofrontend = () => {
@@ -36,17 +32,15 @@ export default function HomePage() {
 
   return (
     <div className="homepage">
-      <Navigation 
-        activeCategory={activeCategory} 
-        setActiveCategory={setActiveCategory} 
+      <UserProfile
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+        onToggleNav={setIsNavOpen}
       />
-      
-      <main className="content-area">
+
+      <main className={`content-area ${isNavOpen ? 'shifted' : ''}`}>
         <header className="content-header">
-          <UserProfile />
-          <h1>Welcome, {urlUsername}!
-            <span className="welcome-emoji">👋</span>
-          </h1>
+          <h1>Welcome, {urlUsername}! <span className="welcome-emoji">👋</span></h1>
           <p className="subtitle">Your cart: {totalItems} items across categories</p>
         </header>
 

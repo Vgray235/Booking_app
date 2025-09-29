@@ -24,14 +24,9 @@ export default function LoginPage() {
     const trimmed = user.trim();
     if (!trimmed) return;
 
-    // Load cart for the logged-in user
     dispatch(loadUserCart({ username: trimmed }));
-
-    // Save user info to Redux
     dispatch(loginUser({ username: trimmed, role: userRole }));
-
-    // Redirect
-     navigate(`/home?username=${encodeURIComponent(trimmed)}`);
+    navigate(`/home?username=${encodeURIComponent(trimmed)}`);
   };
 
   const handleSubmit = (e) => {
@@ -49,11 +44,11 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label htmlFor="username">Username *</label>
+            <label htmlFor="username">Username</label>
             <input
               id="username"
               type="text"
-              placeholder="Enter your username"
+              placeholder="Enter username"
               value={username}
               onChange={e => setUsername(e.target.value)}
               required
@@ -78,7 +73,6 @@ export default function LoginPage() {
         </form>
 
         <div className="login-footer">
-          <p>Try accessing with URL parameter: <code>?username=John</code></p>
           <p><small>Each user has their own separate cart!</small></p>
         </div>
       </div>
